@@ -18,7 +18,6 @@ def get_graph_height(outgoing_packets):
             hits += hit
         if hits > graph_height:
             graph_height = hits
-            
 
     return graph_height
 
