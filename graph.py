@@ -10,7 +10,7 @@ import numpy as np
 #
 #    {...}]
 # so this array gets updated by chopping the end and prepending the new minute
-def get_packet_data(timeslot_packets):
+def format_packet_data(timeslot_packets):
     # Get all addresses across the time window
     all_addresses = set()
     timeslot_addresses = list(map(lambda packet: [*packet], timeslot_packets))
@@ -45,7 +45,7 @@ def get_packet_data(timeslot_packets):
 
 # Set variables
 timeslot_packets = [{"192.168.1.1": 1000, "10.2.1.2": 234, "1.1.1.1": 111}, {"192.168.1.1": 90, "10.2.1.2": 234, "10.2.1.3": 100}]
-address_throughputs = get_packet_data(timeslot_packets)
+address_throughputs = format_packet_data(timeslot_packets)
 
 # Plot the data
 df = pd.DataFrame(address_throughputs)
