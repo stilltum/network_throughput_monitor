@@ -12,11 +12,11 @@ import numpy as np
 # so this array gets updated by chopping the end and prepending the new minute
 def format_packet_data(timeslot_packets):
     # Create labels for time intervals
-    labeled_packets = dict(zip(map(str, range(0, len(timeslot_packets))), timeslot_packets))
+    labeled_packets = zip(map(str, range(0, len(timeslot_packets))), timeslot_packets)
 
     # Format data
     address_throughputs = {}
-    for timeslot, addresses in labeled_packets.items():
+    for timeslot, addresses in labeled_packets:
         for address, throughput in addresses.items():
             if address not in address_throughputs:
                 address_throughputs[address] = {}
