@@ -22,6 +22,7 @@ def format_packet_data(timeslot_packets):
     # Zero out columns that don't exist
     packet_heights = {}
     timeslot = 0
+    print(timeslot_packets)
     for timeslot_ip in timeslot_packets:
         for address in all_addresses:
             if str(timeslot) not in packet_heights:
@@ -29,8 +30,7 @@ def format_packet_data(timeslot_packets):
 
             if address in timeslot_ip:
                 packet_heights[str(timeslot)][address] = timeslot_ip[address]
-            else:
-                packet_heights[str(timeslot)][address] = 0
+
         timeslot += 1
 
     # Format data
