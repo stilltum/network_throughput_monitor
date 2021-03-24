@@ -11,31 +11,12 @@ import numpy as np
 #    {...}]
 # so this array gets updated by chopping the end and prepending the new minute
 def format_packet_data(timeslot_packets):
-    # Get all addresses across the time window
-    all_addresses = set()
-    timeslot_addresses = list(map(lambda packet: [*packet], timeslot_packets))
-    for timeslot in timeslot_addresses:
-        for address in timeslot:
-            all_addresses.add(address)
-    all_addresses = [*all_addresses]
-
-    # Zero out columns that don't exist
-    packet_heights = {}
-    timeslot = 0
-    print(timeslot_packets)
-    for timeslot_ip in timeslot_packets:
-        for address in all_addresses:
-            if str(timeslot) not in packet_heights:
-                packet_heights[str(timeslot)] = {}
-
-            if address in timeslot_ip:
-                packet_heights[str(timeslot)][address] = timeslot_ip[address]
-
-        timeslot += 1
+    # Create labels for time intervals
+    labeled_packets = dict(zip(map(str, range(0, len(timeslot_packets))), timeslot_packets))
 
     # Format data
     address_throughputs = {}
-    for timeslot, addresses in packet_heights.items():
+    for timeslot, addresses in labeled_packets.items():
         for address, throughput in addresses.items():
             if address not in address_throughputs:
                 address_throughputs[address] = {}
