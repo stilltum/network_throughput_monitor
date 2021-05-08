@@ -33,7 +33,6 @@ def print_graph(minute_byte_count):
         return address_throughputs
 
     # Set variables
-
     address_throughputs = format_packet_data(minute_byte_count)
 
     # Plot the data
