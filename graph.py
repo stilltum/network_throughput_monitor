@@ -14,13 +14,13 @@ ifadapter = sys.argv[1]
 # Graph Printing Code
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
+
 
 def print_graph(minute_byte_count):
-
-    def format_packet_data(timeslot_packets):
+    
+    def format_packet_data(minute_byte_count):
         # Create labels for time intervals
-        labeled_packets = zip(map(str, range(0, len(timeslot_packets))), timeslot_packets)
+        labeled_packets = zip(map(str, range(0, len(minute_byte_count))), minute_byte_count)
 
         # Format data
         address_throughputs = {}
@@ -36,10 +36,11 @@ def print_graph(minute_byte_count):
     address_throughputs = format_packet_data(minute_byte_count)
 
     # Plot the data
+    plt.close()
     df = pd.DataFrame(address_throughputs)
     df.plot.bar(stacked=True)
-
-    plt.show()
+    plt.show(block=False)
+    plt.pause(1)
     
 
 # Packet Sniffing Code
@@ -65,5 +66,5 @@ for i in range(0, 10):
         minute_byte_count = minute_byte_count[:-1]
     
     minute_byte_count.insert(0, sniff_data)
-    
+ 
     print_graph(minute_byte_count)
