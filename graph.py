@@ -15,7 +15,7 @@ ifadapter = sys.argv[1]
 import socket
 
 ips_to_hostnames = {}
-def add_ip_to_hostnames(ips):
+def add_ips_to_hostnames(ips):
     for ip in ips.keys():
         if ip not in ips_to_hostnames:
             try:
@@ -63,10 +63,10 @@ from scapy.all import sniff
 # Sum bytes sent in each second
 sniff_data = {}
 def sum_packet_lengths(packet):
-    if packet[0][1].dst not in sniff_data:
-        sniff_data[packet[0][1].dst] = len(packet)
+    if packet[1].dst not in sniff_data:
+        sniff_data[packet[1].dst] = len(packet)
     else:
-        sniff_data[packet[0][1].dst] += len(packet)
+        sniff_data[packet[1].dst] += len(packet)
 
 ## Setup sniff, filtering for IP traffic
 minute_byte_count = []
@@ -75,7 +75,7 @@ for i in range(0, 10):
     sniff_data = {}
     sniff(iface=ifadapter, filter="ip", prn=sum_packet_lengths, timeout=1)
 
-    add_ip_to_hostnames(sniff_data)
+    add_ips_to_hostnames(sniff_data)
 
     if len(minute_byte_count) == 60:
         minute_byte_count = minute_byte_count[:-1]
