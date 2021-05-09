@@ -50,7 +50,7 @@ def print_graph(minute_byte_count):
 
     # Plot the data
     df = pd.DataFrame(address_throughputs)
-    df.plot.bar(stacked=True).legend(loc='center left',bbox_to_anchor=(1.0, 0.5))
+    df.plot.bar(stacked=True, figsize=(10,6)).legend(loc='center left',bbox_to_anchor=(1.0, 0.5), borderaxespad=0.6)
 
     plt.show(block=False)
     plt.pause(1.1)
