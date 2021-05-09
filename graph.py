@@ -44,16 +44,17 @@ def print_graph(minute_byte_count):
                 address_throughputs[hostname][timeslot] = throughput
 
         return address_throughputs
-
+    
     # Set variables
     address_throughputs = format_packet_data(minute_byte_count)
 
     # Plot the data
-    plt.close()
     df = pd.DataFrame(address_throughputs)
-    df.plot.bar(stacked=True)
+    df.plot.bar(stacked=True).legend(loc='center left',bbox_to_anchor=(1.0, 0.5))
+
     plt.show(block=False)
-    plt.pause(1)
+    plt.pause(1.1)
+    plt.close()
     
 
 # Packet Sniffing Code
@@ -68,9 +69,10 @@ def sum_packet_lengths(packet):
     else:
         sniff_data[packet[1].dst] += len(packet)
 
-## Setup sniff, filtering for IP traffic
+## Main event loop
 minute_byte_count = []
-for i in range(0, 10):
+#for i in range(0, 10):
+while(True):
 
     sniff_data = {}
     sniff(iface=ifadapter, filter="ip", prn=sum_packet_lengths, timeout=1)
